@@ -26,9 +26,12 @@ const theme = createTheme({
             textTransform: 'unset',
             fontWeight: 700,
         },
+        h5: {
+            fontWeight: 700,
+        },
         h6: {
             fontWeight: 700,
-        }
+        },
     },
     shape: {
         borderRadius: 7,
