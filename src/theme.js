@@ -1,5 +1,15 @@
 import { createTheme } from "@mui/material";
 
+export const colors = [
+    "#F49DDD",
+    "#FFD166",
+    "#ff9939",
+    "#E85A4F",
+    "#8ABEB7",
+    "#247BA0",
+  ];
+  
+
 const theme = createTheme({
     palette: {
         mode: "dark",
@@ -14,6 +24,9 @@ const theme = createTheme({
         fontFamily: "Lato, sans-serif",
         button: {
             textTransform: 'unset',
+            fontWeight: 700,
+        },
+        h6: {
             fontWeight: 700,
         }
     },

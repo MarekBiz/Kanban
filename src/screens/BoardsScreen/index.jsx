@@ -1,5 +1,11 @@
+import CreateBoardModal from "./CreateBoardModal";
+import Topbar from "./Topbar";
+
 const BoardsScreen = () => {
-  return  <div>BoardsScreen</div>;
+  return <>
+    <Topbar/>
+    <CreateBoardModal/>
+  </>
 };
 
 export default BoardsScreen
