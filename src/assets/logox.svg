@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="100" viewBox="0 0 600 100">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 77px;
+        text-anchor: middle;
+        font-family: "Tw Cen MT Condensed Extra Bold";
+      }
+
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <text id="TManager" class="cls-1" x="339.002" y="69"><tspan x="339.002">TManager</tspan></text>
+  <path id="Prostokąt_1" data-name="Prostokąt 1" class="cls-2" d="M86,17h15.714V49.559H86V17Z"/>
+  <path id="Prostokąt_1-2" data-name="Prostokąt 1" class="cls-2" d="M111.143,17h15.714V71H111.143V17Z"/>
+  <path id="Prostokąt_1-3" data-name="Prostokąt 1" class="cls-2" d="M136.286,17H152V49.559H136.286V17Z"/>
+</svg>
