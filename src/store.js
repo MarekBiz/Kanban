@@ -4,6 +4,10 @@ import { devtools } from "zustand/middleware";
 const store = (set) => ({
   loader: true,
   isLoggedIn: false,
+  boards: [],
+  areBoardsFetched: false,
+  setBoards: (boards) =>
+    set({ boards, areBoardsFetched: true }, false, "setBoards"),
   setLoginStatus: (status) =>
     set(
       {

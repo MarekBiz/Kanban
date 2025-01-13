@@ -7,7 +7,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import useStore from "./store";
 import AppLoader from "./components/layout/AppLoader";
 
-
 import AuthScreen from "./screens/AuthScreen";
 import BoardsScreen from "./screens/BoardsScreen";
 
@@ -39,7 +38,7 @@ const App = () => {
           />
           <Route
             path="/boards"
-            element={<PrivateRoute Component={BoardsScreen}  />}
+            element={<PrivateRoute Component={BoardsScreen} />}
           />
         </Routes>
       </BrowserRouter>

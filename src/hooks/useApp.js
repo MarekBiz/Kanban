@@ -6,12 +6,14 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
+import useStore from "../store";
 
 const useApp = () => {
   const {
     currentUser: { uid },
   } = getAuth();
   const boardsColRef = collection(db, `users/${uid}/boards`);
+  const {setBoards} = useStore()
 
   const createBoard = async ({ name, color }) => {
     try {
@@ -34,10 +36,11 @@ const useApp = () => {
         id: doc.id,
       }));
 
-      console.log(boards);
+      setBoards(boards);
     } catch (err) {
       console.log(err);
-      throw err;
+    } finally{
+        if(setLoading) setLoading(false);
     }
   };
 
