@@ -13,17 +13,14 @@ import ModalHeader from "../../components/layout/ModalHeader";
 import { colors } from "../../theme";
 
 
-const CreateBoardModal = () => {
+const CreateBoardModal = ({closeModal}) => {
   const [name, setName] = useState("");
   const [color, setColor] = useState(0);
 
-  console.log({name, color})
-
-
   return (
-    <Dialog open fullWidth maxWidth="xs">
+    <Dialog open onClose={closeModal} fullWidth maxWidth="xs">
       <Stack p={2}>
-        <ModalHeader title="Create Board" />
+        <ModalHeader onClose={closeModal} title="Create Board" />
         <Stack my={5} spacing={3}>
           <TextField
             value={name}
@@ -36,7 +33,8 @@ const CreateBoardModal = () => {
               <Box
               sx={{
                 cursor: "pointer",
-                border: color === idx ? "3px solid red" : "none"
+                border: color === idx ? "3px solid #383838" : "none",
+                outline: `2px solid ${clr}`
               }}
 
               onClick={() => setColor(idx)}
