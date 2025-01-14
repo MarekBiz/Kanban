@@ -9,10 +9,12 @@ import AppLoader from "./components/layout/AppLoader";
 
 import AuthScreen from "./screens/AuthScreen";
 import BoardsScreen from "./screens/BoardsScreen";
+import BoardScreen from "./screens/BoardScreen";
 
 import PublicOnlyRoute from "./components/utils/PublicOnlyRoute";
 import PrivateRoute from "./components/utils/PrivateRoute";
 import SnackbarManager from "./components/layout/SnackbarManager";
+
 
 const App = () => {
   const { loader, setLoginStatus } = useStore();
@@ -40,6 +42,10 @@ const App = () => {
           <Route
             path="/boards"
             element={<PrivateRoute Component={BoardsScreen} />}
+          />
+          <Route
+            path="/boards/:boardId"
+            element={<PrivateRoute Component={BoardScreen} />}
           />
         </Routes>
       </BrowserRouter>
