@@ -9,9 +9,9 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const AddTaskModal = () => {
+const AddTaskModal = ({tabName, onClose}) => {
   return (
-    <Dialog open fullWidth maxWidth="xs">
+    <Dialog open onClose={onClose} fullWidth maxWidth="xs">
       <Stack p={2}>
         <Stack
           mb={3}
@@ -20,14 +20,14 @@ const AddTaskModal = () => {
           justifyContent="space-between"
         >
           <Typography variant="h6">Add Task</Typography>
-          <IconButton>
+          <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
         </Stack>
         <Stack spacing={2}>
-          <Stack direction="row" alignItems="center" spacing={2}>
+          <Stack direction="row" alignItems="center" spacing={1}>
             <Typography>Status:</Typography>
-            <Chip size="small" label="Todos"></Chip>
+            <Chip size="small" label={tabName}></Chip>
           </Stack>
           <OutlinedInput placeholder="Task" />
           <Button variant="contained">Add Task</Button>

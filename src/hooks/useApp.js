@@ -4,7 +4,7 @@ import {
   serverTimestamp,
   getDocs,
   query,
-  orderBy
+  orderBy,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
@@ -19,12 +19,18 @@ const useApp = () => {
 
   const createBoard = async ({ name, color }) => {
     try {
-      await addDoc(boardsColRef, {
+      const doc = await addDoc(boardsColRef, {
         name,
         color,
         createdAt: serverTimestamp(),
       });
-      addBoard({name, color, createdAt: new Date().toLocaleDateString()});
+
+      addBoard({
+        name,
+        color,
+        createdAt: new Date().toLocaleString("en-US"),
+        id: doc.id,
+      });
     } catch (err) {
       console.log(err);
       throw err;
@@ -33,12 +39,12 @@ const useApp = () => {
 
   const fetchBoards = async (setLoading) => {
     try {
-      const q = query(boardsColRef, orderBy("createdAt", "desc"))
+      const q = query(boardsColRef, orderBy("createdAt", "desc"));
       const querySnapshot = await getDocs(q);
       const boards = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
-        createdAt: doc.data().createdAt.toDate().toLocaleDateString(),
+        createdAt: doc.data().createdAt.toDate().toLocaleString("en-US"),
       }));
 
       setBoards(boards);
