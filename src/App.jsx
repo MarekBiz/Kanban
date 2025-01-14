@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, Snackbar, ThemeProvider } from "@mui/material";
 import theme from "./theme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { auth } from "./firebase";
@@ -12,6 +12,7 @@ import BoardsScreen from "./screens/BoardsScreen";
 
 import PublicOnlyRoute from "./components/utils/PublicOnlyRoute";
 import PrivateRoute from "./components/utils/PrivateRoute";
+import SnackbarManager from "./components/layout/SnackbarManager";
 
 const App = () => {
   const { loader, setLoginStatus } = useStore();
@@ -29,7 +30,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
+      <SnackbarManager/>
       <BrowserRouter>
         <Routes>
           <Route

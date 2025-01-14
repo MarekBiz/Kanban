@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import useStore from "../../store";
 
 const initForm = {
   email: "",
@@ -16,7 +17,8 @@ const AuthScreen = () => {
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState(initForm);
-  
+  const { setToastr } = useStore();
+
   const authText = isLogin
     ? "Do not have an account?"
     : "Already have an account?";
@@ -36,8 +38,8 @@ const AuthScreen = () => {
         await createUserWithEmailAndPassword(auth, form.email, form.password);
       }
     } catch (err) {
-      const msg= err.code.split('auth/')[1].split('-').join(' ')
-      console.log(msg);
+      const msg = err.code.split("auth/")[1].split("-").join(" ");
+      setToastr(msg);
       setLoading(false);
     }
   };
@@ -65,6 +67,7 @@ const AuthScreen = () => {
         />
         <TextField
           value={form.password}
+          type="password"
           name="password"
           onChange={handleChange}
           label="Password"
