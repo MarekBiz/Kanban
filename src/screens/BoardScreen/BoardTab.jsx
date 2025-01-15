@@ -2,7 +2,7 @@ import { memo } from "react";
 import { Grid, Stack, Typography, IconButton, Icon } from "@mui/material";
 import AddIcon from "@mui/icons-material/AddCircleOutline";
 import Task from "./Task";
-import { Droppable } from "react-beautiful-dnd";
+import Droppable from "../../components/utils/StrictModeDroppable";
 
 const BoardTab = ({ name, tasks, status, openAddTaskModal, removeTask }) => {
   console.log("Tab: ", name);
