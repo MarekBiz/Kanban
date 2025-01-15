@@ -5,6 +5,8 @@ import {
   getDocs,
   query,
   orderBy,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
@@ -17,6 +19,18 @@ const useApp = () => {
   const boardsColRef = collection(db, `users/${uid}/boards`);
   const { setBoards, addBoard } = useStore();
 
+  const fetchBoard = async (boardId) => {
+    const docRef = doc(db, `users/${uid}/boardsData/${boardId}`);
+    try {
+      const doc = await getDoc(docRef);
+      if (doc.exists) {
+        return doc.data();
+      } else return null;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const createBoard = async ({ name, color }) => {
     try {
       const doc = await addDoc(boardsColRef, {
@@ -28,7 +42,7 @@ const useApp = () => {
       addBoard({
         name,
         color,
-        createdAt: new Date().toLocaleString("en-US"),
+        createdAt: new Date().toLocaleString("pl-PL"),
         id: doc.id,
       });
     } catch (err) {
@@ -44,7 +58,7 @@ const useApp = () => {
       const boards = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
-        createdAt: doc.data().createdAt.toDate().toLocaleString("en-US"),
+        createdAt: doc.data().createdAt.toDate().toLocaleString("pl-PL"),
       }));
 
       setBoards(boards);
@@ -55,7 +69,7 @@ const useApp = () => {
     }
   };
 
-  return { createBoard, fetchBoards };
+  return { createBoard, fetchBoards, fetchBoard };
 };
 
 export default useApp;

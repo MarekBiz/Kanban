@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { colors } from "../../theme";
 
 
-function BoardTopbar({name, createdAt, color}) {
+function BoardTopbar({name, lastUpdated, color}) {
   const navigate = useNavigate();
   return (
     <AppBar
@@ -28,7 +28,7 @@ function BoardTopbar({name, createdAt, color}) {
         </Stack>
         <Stack spacing={2} alignItems="center" direction="row">
           <Typography variant="body2">
-            Last updated: {createdAt}
+            Last updated: {lastUpdated}
           </Typography>
           <IconButton>
             <DeleteIcon />

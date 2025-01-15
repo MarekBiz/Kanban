@@ -1,5 +1,6 @@
 import { Grid, Stack, Typography, IconButton, Icon } from "@mui/material";
 import AddIcon from "@mui/icons-material/AddCircleOutline";
+import Task from "./Task";
 
 const BoardTab = ({name, addTask}) => {
   return (
@@ -17,7 +18,12 @@ const BoardTab = ({name, addTask}) => {
                 <AddIcon fontSize="small" />
               </IconButton>
             </Stack>
-            <Stack></Stack>
+            <Stack spacing={2} mt={3}>
+              <Task/>
+              <Task/>
+              <Task/>
+              <Task/>
+            </Stack>
           </Stack>
         </Grid>
   )

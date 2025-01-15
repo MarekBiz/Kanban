@@ -9,8 +9,9 @@ const statusMap = {
   completed: "Completed",
 };
 
-const BoardInterface = () => {
+const BoardInterface = ({boardData}) => {
   const [addTaskTo, setAddTaskTo] = useState("");
+  const [tabs, setTabs] = useState(structuredClone(boardData))
 
   return (
     <>
