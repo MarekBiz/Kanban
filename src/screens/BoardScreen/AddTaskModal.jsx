@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const AddTaskModal = ({ tabName, onClose, addTask }) => {
+const AddTaskModal = ({ tabName, onClose, addTask, loading }) => {
   const [text, setText] = useState("");
 
   return (
@@ -37,7 +37,7 @@ const AddTaskModal = ({ tabName, onClose, addTask }) => {
             onChange={(e) => setText(e.target.value)}
             placeholder="Task"
           />
-          <Button onClick={() => addTask(text)} variant="contained">
+          <Button disabled={loading} onClick={() => addTask(text)} variant="contained">
             Add Task
           </Button>
         </Stack>

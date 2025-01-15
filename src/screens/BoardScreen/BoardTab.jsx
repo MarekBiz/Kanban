@@ -1,9 +1,10 @@
+import { memo } from "react";
 import { Grid, Stack, Typography, IconButton, Icon } from "@mui/material";
 import AddIcon from "@mui/icons-material/AddCircleOutline";
 import Task from "./Task";
 
-const BoardTab = ({ name, addTask, tasks}) => {
-  console.log(tasks)
+const BoardTab = ({ name, tasks, status, openAddTaskModal, removeTask }) => {
+  console.log("Tab: ", name);
   return (
     <Grid item xs={4}>
       <Stack p={3} bgcolor="#000">
@@ -15,14 +16,18 @@ const BoardTab = ({ name, addTask, tasks}) => {
           <Typography fontWeight={400} variant="h6">
             {name}
           </Typography>
-          <IconButton onClick={addTask}>
+          <IconButton onClick={() => openAddTaskModal(status)}>
             <AddIcon fontSize="small" />
           </IconButton>
         </Stack>
         <Stack spacing={2} mt={3}>
-          
           {tasks.map((task) => (
-            <Task key={task.id} text={task.text} id={task.id} />
+            <Task
+              key={task.id}
+              text={task.text}
+              id={task.id}
+              removeTask={() => removeTask(status, task.id)}
+            />
           ))}
         </Stack>
       </Stack>
@@ -30,4 +35,4 @@ const BoardTab = ({ name, addTask, tasks}) => {
   );
 };
 
-export default BoardTab;
+export default memo(BoardTab);

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useStore from "../../store";
 import BoardInterface from "./BoardInterface";
 import BoardTopbar from "./BoardTopbar";
@@ -17,8 +17,9 @@ const BoardScreen = () => {
   const board = useMemo(() => boards.find((b) => b.id === boardId), []);
   const boardData = useMemo(() => data, [data]);
 
+  const handleUpdateLastUpdated = useCallback(() => setLastUpdated(new Date().toLocaleString("pl-PL")), [])
 
-  console.log({ data, lastUpdated, loading });
+  //console.log({ data, lastUpdated, loading });
 
   const handleFetchBoard = async () => {
     try {
@@ -40,8 +41,8 @@ const BoardScreen = () => {
     else handleFetchBoard();
   }, []);
 
-  if(!board) return null;
-  if(loading) return <AppLoader/>
+  if (!board) return null;
+  if (loading) return <AppLoader />;
 
   return (
     <>
@@ -50,7 +51,7 @@ const BoardScreen = () => {
         color={board.color}
         lastUpdated={lastUpdated}
       />
-      <BoardInterface boardData={boardData} boardId = {boardId}/>
+      <BoardInterface boardData={boardData} boardId={boardId} updateLastUpdated={handleUpdateLastUpdated} />
     </>
   );
 };

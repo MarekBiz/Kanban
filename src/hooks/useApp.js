@@ -23,7 +23,7 @@ const useApp = () => {
   const updateBoardData = async (boardId, tabs) => {
     const docRef = doc(db, `users/${uid}/boardsData/${boardId}`);
     try {
-      await updateDoc(docRef, { tabs });
+      await updateDoc(docRef, { tabs,  lastUpdated: serverTimestamp()});
     } catch (err) {
       console.log(err);
     }
