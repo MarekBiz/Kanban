@@ -1,7 +1,7 @@
 import { Stack, Typography, IconButton, Icon } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const Task = () => {
+const Task = ({id, text}) => {
   return (
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography
@@ -11,7 +11,7 @@ const Task = () => {
         borderColor="#777980"
         bgcolor="#45474E"
       >
-        Task text
+        {text}
       </Typography>
       <IconButton>
         <DeleteIcon />

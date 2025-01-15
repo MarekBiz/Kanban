@@ -7,6 +7,7 @@ import {
   orderBy,
   doc,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
@@ -18,6 +19,15 @@ const useApp = () => {
   } = getAuth();
   const boardsColRef = collection(db, `users/${uid}/boards`);
   const { setBoards, addBoard } = useStore();
+
+  const updateBoardData = async (boardId, tabs) => {
+    const docRef = doc(db, `users/${uid}/boardsData/${boardId}`);
+    try {
+      await updateDoc(docRef, { tabs });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fetchBoard = async (boardId) => {
     const docRef = doc(db, `users/${uid}/boardsData/${boardId}`);
@@ -69,7 +79,7 @@ const useApp = () => {
     }
   };
 
-  return { createBoard, fetchBoards, fetchBoard };
+  return { createBoard, fetchBoards, fetchBoard, updateBoardData };
 };
 
 export default useApp;

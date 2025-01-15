@@ -15,7 +15,7 @@ const BoardScreen = () => {
   const { boardId } = useParams();
   const { fetchBoard } = useApp();
   const board = useMemo(() => boards.find((b) => b.id === boardId), []);
-  const boardData = useMemo(() => data, [data])
+  const boardData = useMemo(() => data, [data]);
 
 
   console.log({ data, lastUpdated, loading });
@@ -50,7 +50,7 @@ const BoardScreen = () => {
         color={board.color}
         lastUpdated={lastUpdated}
       />
-      <BoardInterface boardData={boardData} />
+      <BoardInterface boardData={boardData} boardId = {boardId}/>
     </>
   );
 };
