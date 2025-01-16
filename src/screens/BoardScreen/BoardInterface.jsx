@@ -34,6 +34,26 @@ const BoardInterface = ({ boardData, boardId, updateLastUpdated }) => {
     []
   );
 
+  const handleShiftTask = async (newStatus) => {
+    const oldStatus = shiftTask.status;
+    if (newStatus === oldStatus) return setShiftTask(null);
+    const dClone = structuredClone(tabs);
+
+    // usuwanie elementu z 1 listy
+    const [task] = dClone[oldStatus].splice(shiftTask.index, 1);
+    // dodawanie elementu do 2 listy
+    dClone[newStatus].unshift(task);
+
+    try {
+      await handleUpdateBoardData(dClone);
+      setShiftTask(null);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleUpdateBoardData = async (dClone) => {
     setLoading(true);
     await updateBoardData(boardId, dClone);
@@ -128,7 +148,13 @@ const BoardInterface = ({ boardData, boardId, updateLastUpdated }) => {
   if (loading) return <AppLoader />;
   return (
     <>
-      {!!shiftTask && <ShiftTaskModal task={shiftTask} />}
+      {!!shiftTask && (
+        <ShiftTaskModal
+          shiftTask={handleShiftTask}
+          task={shiftTask}
+          onClose={() => setShiftTask(null)}
+        />
+      )}
       {!!addTaskTo && (
         <AddTaskModal
           tabName={statusMap[addTaskTo]}

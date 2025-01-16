@@ -3,9 +3,8 @@ import { Dialog, Button, Typography, Stack, Chip } from "@mui/material";
 import ModalHeader from "../../components/layout/ModalHeader";
 import { statusMap } from "./BoardInterface";
 
-
-const ShiftTaskModal = ({ onClose, task }) => {
-    
+const ShiftTaskModal = ({ onClose, task, shiftTask }) => {
+  const [taskStatus, setTaskStatus] = useState(task.status);
   return (
     <Dialog open fullWidth maxWidth="xs">
       <Stack p={2}>
@@ -22,7 +21,8 @@ const ShiftTaskModal = ({ onClose, task }) => {
             <Stack direction="row" spacing={1}>
               {Object.entries(statusMap).map(([status, label]) => (
                 <Chip
-                  variant={task.status === status ? "filled" : "outlined"}
+                  onClick={() => setTaskStatus(status)}
+                  variant={taskStatus === status ? "filled" : "outlined"}
                   key={status}
                   label={label}
                 />
@@ -30,7 +30,9 @@ const ShiftTaskModal = ({ onClose, task }) => {
             </Stack>
           </Stack>
         </Stack>
-        <Button variant="contained">Shift Task</Button>
+        <Button onClick={() => shiftTask(taskStatus)} variant="contained">
+          Shift Task
+        </Button>
       </Stack>
     </Dialog>
   );
