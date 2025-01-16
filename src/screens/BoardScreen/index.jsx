@@ -14,11 +14,26 @@ const BoardScreen = () => {
   const [loading, setLoading] = useState(true);
   const { boards, areBoardsFetched } = useStore();
   const { boardId } = useParams();
-  const { fetchBoard } = useApp();
+  const { fetchBoard, deleteBoard } = useApp();
   const board = useMemo(() => boards.find((b) => b.id === boardId), []);
+
   const boardData = useMemo(() => data, [data]);
 
-  const handleUpdateLastUpdated = useCallback(() => setLastUpdated(new Date().toLocaleString("pl-PL")), [])
+  const handleDeleteBoard = useCallback (async () => {
+    if (!window.confirm("Are you sure you want to delete this board?")) return;
+    try {
+      setLoading(true);
+      await deleteBoard(boardId);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  }, []);
+
+  const handleUpdateLastUpdated = useCallback(
+    () => setLastUpdated(new Date().toLocaleString("pl-PL")),
+    []
+  );
 
   //console.log({ data, lastUpdated, loading });
 
@@ -44,7 +59,7 @@ const BoardScreen = () => {
 
   if (!board) return null;
   if (loading) return <AppLoader />;
-  if(!data) return <BoardNotReady/>
+  if (!data) return <BoardNotReady />;
 
   return (
     <>
@@ -52,8 +67,13 @@ const BoardScreen = () => {
         name={board.name}
         color={board.color}
         lastUpdated={lastUpdated}
+        deleteBoard={handleDeleteBoard}
       />
-      <BoardInterface boardData={boardData} boardId={boardId} updateLastUpdated={handleUpdateLastUpdated} />
+      <BoardInterface
+        boardData={boardData}
+        boardId={boardId}
+        updateLastUpdated={handleUpdateLastUpdated}
+      />
     </>
   );
 };

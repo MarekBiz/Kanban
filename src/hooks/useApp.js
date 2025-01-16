@@ -8,17 +8,37 @@ import {
   doc,
   getDoc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
 import useStore from "../store";
+import { useNavigate } from "react-router-dom";
 
 const useApp = () => {
+  const navigate = useNavigate();
   const {
     currentUser: { uid },
   } = getAuth();
   const boardsColRef = collection(db, `users/${uid}/boards`);
-  const { setBoards, addBoard, setToastr } = useStore();
+  const { boards, setBoards, addBoard, setToastr } = useStore();
+
+  const deleteBoard = async (boardId) => {
+    try {
+      // usunięcie doc z bazy danych
+      const docRef = doc(db, `users/${uid}/boards/${boardId}`);
+      await deleteDoc(docRef);
+
+      // update tablic
+      const tBoards = boards.filter((board) => board.id !== boardId);
+      setBoards(tBoards);
+
+      // przekierowanie na strony /boards
+      navigate("/boards");
+    } catch (err) {
+      setToastr("Error deleting the board");
+    }
+  };
 
   const updateBoardData = async (boardId, tabs) => {
     const docRef = doc(db, `users/${uid}/boardsData/${boardId}`);
@@ -81,7 +101,7 @@ const useApp = () => {
     }
   };
 
-  return { createBoard, fetchBoards, fetchBoard, updateBoardData };
+  return { createBoard, fetchBoards, fetchBoard, updateBoardData, deleteBoard };
 };
 
 export default useApp;

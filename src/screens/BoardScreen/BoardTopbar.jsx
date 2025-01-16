@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { AppBar, Toolbar, Stack, IconButton, Typography } from "@mui/material";
 import BackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -5,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { colors } from "../../theme";
 
 
-function BoardTopbar({name, lastUpdated, color}) {
+
+function BoardTopbar({name, lastUpdated, color, deleteBoard}) {
   const navigate = useNavigate();
   return (
     <AppBar
@@ -30,7 +32,7 @@ function BoardTopbar({name, lastUpdated, color}) {
           <Typography variant="body2">
             Last updated: {lastUpdated}
           </Typography>
-          <IconButton>
+          <IconButton onClick={deleteBoard}>
             <DeleteIcon />
           </IconButton>
         </Stack>
@@ -39,4 +41,4 @@ function BoardTopbar({name, lastUpdated, color}) {
   );
 }
 
-export default BoardTopbar;
+export default memo(BoardTopbar);
