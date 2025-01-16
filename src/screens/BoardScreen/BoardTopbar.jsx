@@ -29,7 +29,10 @@ function BoardTopbar({name, lastUpdated, color, deleteBoard}) {
           <Typography variant="h6">{name}</Typography>
         </Stack>
         <Stack spacing={2} alignItems="center" direction="row">
-          <Typography variant="body2">
+          <Typography display={{
+            xs: 'none',
+            sm: 'block'
+          }} variant="body2">
             Last updated: {lastUpdated}
           </Typography>
           <IconButton onClick={deleteBoard}>

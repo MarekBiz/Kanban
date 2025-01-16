@@ -12,14 +12,19 @@ import CloseIcon from "@mui/icons-material/Close";
 import ModalHeader from "../../components/layout/ModalHeader";
 import { colors } from "../../theme";
 import useApp from "../../hooks/useApp";
+import useStore from "../../store";
+
 
 const CreateBoardModal = ({ closeModal }) => {
   const { createBoard } = useApp();
   const [name, setName] = useState("");
   const [color, setColor] = useState(0);
   const [loading, setLoading] = useState(false);
+  const {setToastr} = useStore()
 
   const handleCreate = async () => {
+    if(!name.trim()) return setToastr('You need to enter boaed name!');
+    if(name.length > 20) return setToastr('Board name is too long, it cannot be longer than 20 chars');
     try {
       setLoading(true);
       await createBoard({ name, color });
