@@ -1,5 +1,12 @@
 import { memo } from "react";
-import { Grid, Stack, Typography, IconButton, Icon } from "@mui/material";
+import {
+  Grid,
+  Stack,
+  Typography,
+  IconButton,
+  Icon,
+  useMediaQuery,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/AddCircleOutline";
 import Task from "./Task";
 import Droppable from "../../components/utils/StrictModeDroppable";
@@ -13,6 +20,7 @@ const BoardTab = ({
   openShiftTaskModal,
 }) => {
   console.log("Tab: ", name);
+  const isXs = useMediaQuery((theme) => theme.breakpoints.only("xs"));
   return (
     <Droppable droppableId={status}>
       {(provided) => (
@@ -39,12 +47,16 @@ const BoardTab = ({
             <Stack spacing={2} mt={3}>
               {tasks.map((task, index) => (
                 <Task
-                  onClick={() =>
-                    openShiftTaskModal({
-                      text: task.text,
-                      index: index,
-                      status: status,
-                    })
+                  onClick={
+                    //wyłączenie shifta na dużym ekranie
+                    isXs
+                      ? () =>
+                          openShiftTaskModal({
+                            text: task.text,
+                            index: index,
+                            status: status,
+                          })
+                      : null
                   }
                   key={task.id}
                   text={task.text}

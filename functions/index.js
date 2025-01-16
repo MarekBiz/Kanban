@@ -1,4 +1,7 @@
-const { onDocumentCreated, onDocumentDeleted } = require("firebase-functions/v2/firestore");
+const {
+  onDocumentCreated,
+  onDocumentDeleted,
+} = require("firebase-functions/v2/firestore");
 const { getFirestore, FieldValue } = require("firebase-admin/firestore");
 const { onRequest } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");

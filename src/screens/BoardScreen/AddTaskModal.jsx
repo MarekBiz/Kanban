@@ -16,7 +16,7 @@ const AddTaskModal = ({ tabName, onClose, addTask}) => {
 
   return (
     <Dialog open onClose={onClose} fullWidth maxWidth="xs">
-      <Stack p={2}>
+      <Stack mt={3} p={2}>
         {/* <Stack
           mb={3}
           direction="row"

@@ -5,9 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../theme";
 
-
-
-function BoardTopbar({name, lastUpdated, color, deleteBoard}) {
+function BoardTopbar({ name, lastUpdated, color, deleteBoard }) {
   const navigate = useNavigate();
   return (
     <AppBar
@@ -29,10 +27,13 @@ function BoardTopbar({name, lastUpdated, color, deleteBoard}) {
           <Typography variant="h6">{name}</Typography>
         </Stack>
         <Stack spacing={2} alignItems="center" direction="row">
-          <Typography display={{
-            xs: 'none',
-            sm: 'block'
-          }} variant="body2">
+          <Typography
+            display={{
+              xs: "none",
+              sm: "block",
+            }}
+            variant="body2"
+          >
             Last updated: {lastUpdated}
           </Typography>
           <IconButton onClick={deleteBoard}>
