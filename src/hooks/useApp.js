@@ -18,14 +18,15 @@ const useApp = () => {
     currentUser: { uid },
   } = getAuth();
   const boardsColRef = collection(db, `users/${uid}/boards`);
-  const { setBoards, addBoard } = useStore();
+  const { setBoards, addBoard, setToastr } = useStore();
 
   const updateBoardData = async (boardId, tabs) => {
     const docRef = doc(db, `users/${uid}/boardsData/${boardId}`);
     try {
-      await updateDoc(docRef, { tabs,  lastUpdated: serverTimestamp()});
+      await updateDoc(docRef, { tabs, lastUpdated: serverTimestamp() });
     } catch (err) {
-      console.log(err);
+      setToastr("Eroor updating board");
+      throw err;
     }
   };
 
@@ -37,7 +38,8 @@ const useApp = () => {
         return doc.data();
       } else return null;
     } catch (err) {
-      console.log(err);
+      setToastr("Eroor fetching board");
+      throw err;
     }
   };
 
@@ -56,7 +58,7 @@ const useApp = () => {
         id: doc.id,
       });
     } catch (err) {
-      console.log(err);
+      setToastr("Eroor creating board");
       throw err;
     }
   };
@@ -73,7 +75,7 @@ const useApp = () => {
 
       setBoards(boards);
     } catch (err) {
-      console.log(err);
+      setToastr("Eroor featching boards");
     } finally {
       if (setLoading) setLoading(false);
     }

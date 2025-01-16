@@ -5,6 +5,7 @@ import BoardTopbar from "./BoardTopbar";
 import { useNavigate, useParams } from "react-router-dom";
 import useApp from "../../hooks/useApp";
 import AppLoader from "../../components/layout/AppLoader";
+import BoardNotReady from "./BoardNotReady";
 
 const BoardScreen = () => {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ const BoardScreen = () => {
 
   if (!board) return null;
   if (loading) return <AppLoader />;
+  if(!data) return <BoardNotReady/>
 
   return (
     <>

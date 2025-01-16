@@ -26,13 +26,14 @@ const BoardsScreen = () => {
       <Topbar openModal={() => setShowModal(true)} />
       {showModal && <CreateBoardModal closeModal={() => setShowModal(false)} />}
       {/* <NoBoards></NoBoards> */}
-      <Stack mt={5} px={3}>
+
+      {!boards.length ? <NoBoards/> : <Stack mt={5} px={3}>
         <Grid container spacing={4}>
           {boards.map((board) => (
             <BoardCard key={board.id} {...board} />
           ))}
         </Grid>
-      </Stack>
+      </Stack>}
     </>
   );
 };

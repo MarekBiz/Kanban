@@ -27,58 +27,66 @@ const BoardInterface = ({ boardData, boardId, updateLastUpdated }) => {
     []
   );
 
-  // const handleRemoveTask = useCallback(async (tab, taskId) => {
-  //   const dClone = structuredClone(tabs);
-  //   const taskIdx = dClone[tab].findIndex((t) => t.id === taskId);
-  //   dClone[tab].splice(taskIdx, 1);
-  //   try {
-  //     await updateBoardData(boardId, dClone);
-  //     setTabs(dClone);
-  //     updateLastUpdated();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
+  const handleUpdateBoardData = async (dClone) => {
+    setLoading(true);
+    await updateBoardData(boardId, dClone);
+    setTabs(dClone);
+    updateLastUpdated();
+    setToastr("board updated");
+  };
 
   const handleRemoveTask = useCallback(
     async (tab, taskId) => {
-      setTabs((prevTabs) => {
-        const dClone = structuredClone(prevTabs);
-        const taskIdx = dClone[tab].findIndex((t) => t.id === taskId);
-        if (taskIdx !== -1) {
-          dClone[tab].splice(taskIdx, 1);
-        }
-        return dClone;
-      });
-
+      const dClone = structuredClone(tabs);
+      const taskIdx = dClone[tab].findIndex((t) => t.id === taskId);
+      dClone[tab].splice(taskIdx, 1);
       try {
-        const updatedTabs = structuredClone(tabs);
-        const taskIdx = updatedTabs[tab].findIndex((t) => t.id === taskId);
-        if (taskIdx !== -1) {
-          updatedTabs[tab].splice(taskIdx, 1);
-        }
-        setLoading(true);
-        await updateBoardData(boardId, updatedTabs);
-        updateLastUpdated();
+        await handleUpdateBoardData(dClone);
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
       }
     },
-    [boardId, tabs, updateBoardData, updateLastUpdated]
+    [tabs]
   );
+
+  // const handleRemoveTask = useCallback(
+  //   async (tab, taskId) => {
+  //     setTabs((prevTabs) => {
+  //       const dClone = structuredClone(prevTabs);
+  //       const taskIdx = dClone[tab].findIndex((t) => t.id === taskId);
+  //       if (taskIdx !== -1) {
+  //         dClone[tab].splice(taskIdx, 1);
+  //       }
+  //       return dClone;
+  //     });
+
+  //     try {
+  //       const updatedTabs = structuredClone(tabs);
+  //       const taskIdx = updatedTabs[tab].findIndex((t) => t.id === taskId);
+  //       if (taskIdx !== -1) {
+  //         updatedTabs[tab].splice(taskIdx, 1);
+  //       }
+  //       setLoading(true);
+  //       await updateBoardData(boardId, updatedTabs);
+  //       updateLastUpdated();
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   },
+  //   [boardId, tabs, updateBoardData, updateLastUpdated]
+  // );
 
   const handleAddTask = async (text) => {
     if (!text.trim()) return setToastr("Task cannot be empty :(");
     const dClone = structuredClone(tabs);
     dClone[addTaskTo].unshift({ text, id: crypto.randomUUID() });
     try {
-      setLoading(true);
-      await updateBoardData(boardId, dClone);
-      setTabs(dClone);
+      await handleUpdateBoardData(dClone);
       setAddTaskTo("");
-      updateLastUpdated();
     } catch (err) {
       console.log(err);
     } finally {
@@ -103,10 +111,7 @@ const BoardInterface = ({ boardData, boardId, updateLastUpdated }) => {
     dClone[destination.droppableId].splice(destination.index, 0, draggedTask);
 
     try {
-      setLoading(true);
-      await updateBoardData(boardId, dClone);
-      setTabs(dClone);
-      updateLastUpdated();
+      await handleUpdateBoardData(dClone);
     } catch (err) {
       console.log(err);
     } finally {
