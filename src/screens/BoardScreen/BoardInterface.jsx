@@ -6,8 +6,9 @@ import useApp from "../../hooks/useApp";
 import useStore from "../../store";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppLoader from "../../components/layout/AppLoader";
+import ShiftTaskModal from "./ShiftTaskModal";
 
-const statusMap = {
+export const statusMap = {
   todos: "Todos",
   inProgress: "In Progress",
   completed: "Completed",
@@ -17,6 +18,7 @@ const sleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
 
 const BoardInterface = ({ boardData, boardId, updateLastUpdated }) => {
   const [loading, setLoading] = useState(false);
+  const [shiftTask, setShiftTask] = useState(null);
   const [addTaskTo, setAddTaskTo] = useState("");
   const [tabs, setTabs] = useState(structuredClone(boardData));
   const { updateBoardData } = useApp();
@@ -24,6 +26,11 @@ const BoardInterface = ({ boardData, boardId, updateLastUpdated }) => {
 
   const handleOpenAddTaskModal = useCallback(
     (status) => setAddTaskTo(status),
+    []
+  );
+
+  const handleOpneShiftTaskModal = useCallback(
+    (task) => setShiftTask(task),
     []
   );
 
@@ -121,6 +128,7 @@ const BoardInterface = ({ boardData, boardId, updateLastUpdated }) => {
   if (loading) return <AppLoader />;
   return (
     <>
+      {!!shiftTask && <ShiftTaskModal task={shiftTask} />}
       {!!addTaskTo && (
         <AddTaskModal
           tabName={statusMap[addTaskTo]}
@@ -138,6 +146,7 @@ const BoardInterface = ({ boardData, boardId, updateLastUpdated }) => {
               tasks={tabs[status]}
               name={statusMap[status]}
               openAddTaskModal={handleOpenAddTaskModal}
+              openShiftTaskModal={handleOpneShiftTaskModal}
               removeTask={handleRemoveTask}
             />
           ))}

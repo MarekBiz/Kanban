@@ -23,11 +23,12 @@ const CreateBoardModal = ({ closeModal }) => {
   const {setToastr} = useStore()
 
   const handleCreate = async () => {
-    if(!name.trim()) return setToastr('You need to enter boaed name!');
-    if(name.length > 20) return setToastr('Board name is too long, it cannot be longer than 20 chars');
+    const tName = name.trim()
+    if(!tName) return setToastr('You need to enter boaed name!');
+    if (!/^[a-zA-Z0-9\s]{1,20}$/.test(tName)) return setToastr('Board name is too long, it cannot be longer than 20 chars');
     try {
       setLoading(true);
-      await createBoard({ name, color });
+      await createBoard({ name: tName, color });
       closeModal();
     } catch (err) {
       setLoading(false);

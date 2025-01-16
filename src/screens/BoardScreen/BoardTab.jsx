@@ -4,12 +4,25 @@ import AddIcon from "@mui/icons-material/AddCircleOutline";
 import Task from "./Task";
 import Droppable from "../../components/utils/StrictModeDroppable";
 
-const BoardTab = ({ name, tasks, status, openAddTaskModal, removeTask }) => {
+const BoardTab = ({
+  name,
+  tasks,
+  status,
+  openAddTaskModal,
+  removeTask,
+  openShiftTaskModal,
+}) => {
   console.log("Tab: ", name);
   return (
     <Droppable droppableId={status}>
       {(provided) => (
-        <Grid {...provided.droppableProps} ref={provided.innerRef} item xs={4}>
+        <Grid
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+          item
+          xs={12}
+          sm={4}
+        >
           <Stack p={3} bgcolor="#000">
             <Stack
               direction="row"
@@ -26,11 +39,18 @@ const BoardTab = ({ name, tasks, status, openAddTaskModal, removeTask }) => {
             <Stack spacing={2} mt={3}>
               {tasks.map((task, index) => (
                 <Task
+                  onClick={() =>
+                    openShiftTaskModal({
+                      text: task.text,
+                      index: index,
+                      status: status,
+                    })
+                  }
                   key={task.id}
                   text={task.text}
                   id={task.id}
                   removeTask={() => removeTask(status, task.id)}
-                  index = {index}
+                  index={index}
                 />
               ))}
             </Stack>

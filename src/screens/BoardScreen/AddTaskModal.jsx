@@ -9,6 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import ModalHeader from "../../components/layout/ModalHeader";
 
 const AddTaskModal = ({ tabName, onClose, addTask}) => {
   const [text, setText] = useState("");
@@ -16,7 +17,7 @@ const AddTaskModal = ({ tabName, onClose, addTask}) => {
   return (
     <Dialog open onClose={onClose} fullWidth maxWidth="xs">
       <Stack p={2}>
-        <Stack
+        {/* <Stack
           mb={3}
           direction="row"
           alignItems="center"
@@ -26,7 +27,8 @@ const AddTaskModal = ({ tabName, onClose, addTask}) => {
           <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
-        </Stack>
+        </Stack> */}
+        <ModalHeader title="Add task" onClick={onClose}/>
         <Stack spacing={2}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Typography>Status:</Typography>
