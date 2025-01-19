@@ -28,7 +28,7 @@ const AddTaskModal = ({ tabName, onClose, addTask}) => {
             <CloseIcon />
           </IconButton>
         </Stack> */}
-        <ModalHeader title="Add task" onClick={onClose}/>
+        <ModalHeader title="Add task" onClose={onClose}/>
         <Stack spacing={2}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Typography>Status:</Typography>
