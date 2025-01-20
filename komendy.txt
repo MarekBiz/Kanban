@@ -1,3 +1,7 @@
 npm run dev
 
 npm run fb-emulators
+
+dodać:
+wiki git
+nazwisko i przedmioty
